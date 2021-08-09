@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="model" default="$(find myCobotROS)/urdf/mycobot_urdf.urdf"/>
+	<arg name="rvizconfig" default="$(find myCobotROS)/config/mycobot.rviz" />
+	<param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)" />
+
+	<!-- Given the published joint states, publish tf for the robot links -->
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" />
+	
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+</launch>
